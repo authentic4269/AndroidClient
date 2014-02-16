@@ -130,12 +130,13 @@ public class MotionControllerActivity extends Activity {
 				new SocketError(this.getApplicationContext()));
 		int i = R.layout.activity_motion_controller;
 		this.conn = new Thread(connection);
+		this.conn.start();
 		setContentView(i);
 		Button bl = (Button) findViewById(R.id.button1);
 		Button br = (Button) findViewById(R.id.button0);
 		Button wheel = (Button) findViewById(R.id.button2);
 		Button touch = (Button) findViewById(R.id.touch);
-		this.conn.start();
+		
 		
 		wheel.setOnTouchListener(new OnTouchListener(){
 			float lastX;
@@ -190,7 +191,7 @@ public class MotionControllerActivity extends Activity {
 				connection.notifyRightClick();
 			}
 		});
-		touch.setOnTouchListener(new OnTouchListener() {
+		/*touch.setOnTouchListener(new OnTouchListener() {
 			private SparseArray<PointF> activepointers = new SparseArray<PointF>();
 			private float dist = 0;
 			
@@ -238,8 +239,8 @@ public class MotionControllerActivity extends Activity {
 						
 					}
 					return true;
-				default: {
 					activepointers.remove(pointerId);
+				default: {
 				}
 					
 				}
@@ -247,7 +248,8 @@ public class MotionControllerActivity extends Activity {
 				
 			}
 			
-		});
+		});*/
+		
 		
 	}
 
