@@ -15,6 +15,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.widget.Toast;
 
 
 public class Connection implements Runnable, SensorEventListener {
@@ -26,11 +27,14 @@ public class Connection implements Runnable, SensorEventListener {
 	private BufferedReader in;
 	private int count;
 	private boolean notify = false;
+	private String server;
+	private SocketError err;
 	
-	public Connection(SensorManager m)
+	public Connection(SensorManager m, String servername, SocketError errorHandler)
 	{
 		manager = m;
-
+		err = errorHandler;
+		server = servername;
 	}
 	
 	public void run() {
@@ -46,12 +50,12 @@ public class Connection implements Runnable, SensorEventListener {
 			// christo 158.130.169.198
 			// acer 158.130.167.201
 			// macbook 158.130.161.209
-            Socket socket = new Socket("158.130.161.209", 3000);
+            Socket socket = new Socket(server, 3000);
             in = new BufferedReader(
                     new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
 			} catch (IOException e) {
-				e.printStackTrace();
+				err.run(e.getMessage());
 			}
 		manager.registerListener(this, mRotationVectorSensor, SensorManager.SENSOR_DELAY_GAME);
 		manager.registerListener(this, mLinearAccelerationSensor, SensorManager.SENSOR_DELAY_GAME);
@@ -134,8 +138,20 @@ public class Connection implements Runnable, SensorEventListener {
 		JSONObject ob = new JSONObject();
 		try {
 			ob.put("type", 5);
-			ob.put("data", (int) (dist / 10.0));
+			ob.put("data", (int) (dist / 100.0));
 			ob.put("down", i);
+			out.println(ob.toString());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void notifyZoom(float f) {
+		JSONObject ob = new JSONObject();
+		try {
+			ob.put("type", 6);
+			ob.put("data", f);
+			out.println(ob.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
