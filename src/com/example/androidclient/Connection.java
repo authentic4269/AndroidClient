@@ -57,8 +57,8 @@ public class Connection implements Runnable, SensorEventListener {
 			} catch (IOException e) {
 				err.run(e.getMessage());
 			}
-		manager.registerListener(this, mRotationVectorSensor, SensorManager.SENSOR_DELAY_GAME);
-		manager.registerListener(this, mLinearAccelerationSensor, SensorManager.SENSOR_DELAY_GAME);
+		manager.registerListener(this, mRotationVectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
+		manager.registerListener(this, mLinearAccelerationSensor, SensorManager.SENSOR_DELAY_NORMAL);
 	}
 	
 	public void notifyLeftClick()
@@ -146,11 +146,11 @@ public class Connection implements Runnable, SensorEventListener {
 		}
 	}
 
-	public void notifyZoom(float f) {
+	public void notifyZoom(double f) {
 		JSONObject ob = new JSONObject();
 		try {
 			ob.put("type", 6);
-			ob.put("data", f);
+			ob.put("data", (int) (f / 100.0));
 			out.println(ob.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();

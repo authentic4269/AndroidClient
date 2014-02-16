@@ -135,7 +135,7 @@ public class MotionControllerActivity extends Activity {
 		Button br = (Button) findViewById(R.id.button0);
 		Button wheel = (Button) findViewById(R.id.button2);
 		Button touch = (Button) findViewById(R.id.touch);
-		//this.conn.start();
+		this.conn.start();
 		
 		wheel.setOnTouchListener(new OnTouchListener(){
 			float lastX;
@@ -214,7 +214,7 @@ public class MotionControllerActivity extends Activity {
 						float yd = p1.y - p0.y;
 						dist = (xd * xd) + (yd * yd);
 					}
-					break;
+					return true;
 				case MotionEvent.ACTION_MOVE:
 					int j = 0;
 					for (int size = 2; j < size; j++)
@@ -237,6 +237,7 @@ public class MotionControllerActivity extends Activity {
 						dist = newdist;
 						
 					}
+					return true;
 				default: {
 					activepointers.remove(pointerId);
 				}
@@ -247,7 +248,7 @@ public class MotionControllerActivity extends Activity {
 			}
 			
 		});
-		this.conn.start();
+		
 	}
 
 	@Override

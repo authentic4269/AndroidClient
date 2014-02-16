@@ -25,7 +25,6 @@
             android:layout_alignRight="@+id/imageView1"
             android:layout_alignTop="@+id/imageView1"
             android:layout_marginTop="24dp"
-            android:visibility="gone"
             android:text="" />
 
         <Button
@@ -35,7 +34,6 @@
             android:layout_alignLeft="@+id/imageView1"
             android:layout_alignTop="@+id/imageView1"
             android:layout_marginTop="16dp"
-            android:visibility="gone"
             android:text="" />
 
         <Button
@@ -44,7 +42,6 @@
             android:layout_height="160dp"
             android:layout_alignTop="@+id/button1"
             android:layout_centerHorizontal="true"
-            android:visibility="gone"
             android:text="" />
 
         <Button
@@ -55,7 +52,6 @@
             android:layout_alignLeft="@+id/imageView1"
             android:layout_alignRight="@+id/imageView1"
             android:layout_below="@+id/button2"
-            android:visibility="gone"
             android:text="" />
 
     </RelativeLayout>
